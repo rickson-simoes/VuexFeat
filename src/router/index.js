@@ -1,153 +1,43 @@
-import { createRouter, createWebHistory } from "vue-router";
-import NProgress from "nprogress";
-
-import EventList from "../views/EventList.vue";
-import About from "../views/About.vue";
-
-import EventLayout from "../views/event/Layout.vue";
-import EventDetails from "../views/event/Details.vue";
-import EventRegister from "../views/event/Register.vue";
-import EventEdit from "../views/event/Edit.vue";
-
-import NotFound from "../views/NotFound.vue";
-import NetworkError from "../views/NetworkError.vue";
-
-import EventService from "@/services/EventService.js";
-import GStore from "@/store";
+import { createRouter, createWebHistory } from 'vue-router'
+import EventList from '../views/EventList.vue'
+import EventDetails from '../views/EventDetails.vue'
+import EventCreate from '../views/EventCreate.vue'
+import ErrorDisplay from '../views/ErrorDisplay.vue'
+import About from '../views/About.vue'
 
 const routes = [
   {
-    path: "/about",
-    name: "About",
-    component: About,
-    alias: "/about-us",
+    path: '/',
+    name: 'EventList',
+    component: EventList
   },
   {
-    path: "/",
-    name: "EventList",
-    component: EventList,
-    props: (route) => {
-      return { page: parseInt(route.query.page) || 1 };
-    },
-  },
-  {
-    path: "/events/:id",
-    name: "EventLayout",
+    path: '/event/:id',
+    name: 'EventDetails',
     props: true,
-    component: EventLayout,
-    beforeEnter: (to) => {
-      return EventService.getEvent(to.params.id)
-        .then((response) => {
-          GStore.eventData = response.data;
-        })
-        .catch((error) => {
-          if (error.response && error.response.status === 404) {
-            return {
-              name: "404Resource",
-              params: {
-                resource: "event",
-              },
-            };
-          } else {
-            return {
-              name: "NetworkError",
-            };
-          }
-        });
-    },
-    children: [
-      {
-        path: "",
-        name: "EventDetails",
-        component: EventDetails,
-      },
-      {
-        path: "register",
-        name: "EventRegister",
-        component: EventRegister,
-      },
-      {
-        path: "edit",
-        name: "EventEdit",
-        component: EventEdit,
-        meta: { requireAuth: true },
-      },
-    ],
-  },
-  // {
-  //   path: "/event/:id",
-  //   redirect: () => ({ name: "EventDetails" }),
-  //   children: [
-  //     {
-  //       path: "register",
-  //       redirect: () => ({ name: "EventRegister" }),
-  //     },
-  //     {
-  //       path: "edit",
-  //       redirect: () => ({ name: "EventEdit" }),
-  //     },
-  //   ],
-  // },
-  {
-    path: "/event/:afterEvent(.*)",
-    redirect: (to) => {
-      return { path: "/events/" + to.params.afterEvent };
-    },
+    component: EventDetails
   },
   {
-    path: "/:catchAll(.*)",
-    name: "NotFound",
-    component: NotFound,
+    path: '/event/create',
+    name: 'EventCreate',
+    component: EventCreate
   },
   {
-    path: "/404/:resource",
-    name: "404Resource",
-    component: NotFound,
+    path: '/error/:error',
+    name: 'ErrorDisplay',
     props: true,
+    component: ErrorDisplay
   },
   {
-    path: "/network-error",
-    name: "NetworkError",
-    component: NetworkError,
-  },
-];
+    path: '/about',
+    name: 'About',
+    component: About
+  }
+]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    } else {
-      return { top: 0, behavior: "smooth" };
-    }
-  },
-});
+  routes
+})
 
-router.beforeEach((to, from) => {
-  NProgress.start();
-
-  const isAuthorized = false;
-
-  if (to.meta.requireAuth && !isAuthorized) {
-    GStore.flashMessage = "Uh oh! You're not authorized :(";
-
-    setTimeout(() => {
-      GStore.flashMessage = "";
-    }, 3000);
-
-    // se for o caso de estar dentro da aplicação, identifica a rota anterior
-    if (from.href) {
-      return false;
-    } else {
-      // se estiver vindo de outro local, redireciona para o menu principal
-      return { name: "EventList" };
-    }
-  }
-});
-
-router.afterEach(() => {
-  NProgress.done();
-});
-
-export default router;
+export default router
