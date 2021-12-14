@@ -33,10 +33,10 @@
 
       <h3>When is your event?</h3>
       <label>Date</label>
-      <input v-model="event.date" type="text" placeholder="Date" />
+      <input v-model="event.date" type="date" placeholder="Date" />
 
       <label>Time</label>
-      <input v-model="event.time" type="text" placeholder="Time" />
+      <input v-model="event.time" type="time" placeholder="Time" />
 
       <button type="submit">Submit</button>
     </form>
@@ -45,6 +45,7 @@
 
 <script>
 import { v4 as UUIDv4 } from 'uuid';
+import EventService from '@/services/EventService';
 
 export default {
   data() {
@@ -72,9 +73,22 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.event.id = UUIDv4();
-      this.event.organizer = this.$store.state.user;
-      console.log('Event:', this.event);
+      // this.event.id = UUIDv4();
+      // this.event.organizer = this.$store.state.user;
+
+      const event = {
+        ...this.event,
+        id: UUIDv4(),
+        organizer: this.$store.state.user
+      };
+
+      EventService.postEvent(event)
+        .then(() => {
+          this.$store.commit('ADD_EVENT', event);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 };

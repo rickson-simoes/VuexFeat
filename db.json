@@ -29,6 +29,26 @@
       "date": "July 22, 2022",
       "time": "11:00",
       "organizer": "Carey Wales"
+    },
+    {
+      "id": "347eca34-74b0-47d6-b78e-13d2bfd5c0b3",
+      "category": "animal welfare",
+      "title": "Animal adoption",
+      "description": "you can adopt one",
+      "location": "Brazil, Rio de Janeiro",
+      "date": "27/12/2021",
+      "time": "14:00",
+      "organizer": "Rickson Simões"
+    },
+    {
+      "id": "2e53dbb9-0dfd-4221-bde7-307f38400edf",
+      "category": "animal welfare",
+      "title": "Kangaroo Combing Competition",
+      "description": "you're going to comb some kangaroo's hair",
+      "location": "nowhere",
+      "date": "2022-01-13",
+      "time": "23:33",
+      "organizer": "Rickson Simões"
     }
   ]
 }
