@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import EventList from '@/views/EventList.vue'
-import EventDetails from '@/views/EventDetails.vue'
-import EventCreate from '@/views/EventCreate.vue'
-import About from '@/views/About.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import EventList from '@/views/EventList.vue';
+import EventDetails from '@/views/EventDetails.vue';
+import EventCreate from '@/views/EventCreate.vue';
+import About from '@/views/About.vue';
 
 const routes = [
   {
@@ -26,11 +26,11 @@ const routes = [
     name: 'About',
     component: About
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})
+});
 
-export default router
+export default router;

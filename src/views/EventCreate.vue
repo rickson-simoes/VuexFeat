@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { v4 as UUIDv4 } from 'uuid';
+
 export default {
   data() {
     return {
@@ -66,12 +68,14 @@ export default {
         time: '',
         organizer: ''
       }
-    }
+    };
   },
   methods: {
     onSubmit() {
-      console.log('Event:', this.event)
+      this.event.id = UUIDv4();
+      this.event.organizer = this.$store.state.user;
+      console.log('Event:', this.event);
     }
   }
-}
+};
 </script>
