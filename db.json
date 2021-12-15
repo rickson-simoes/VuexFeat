@@ -49,6 +49,16 @@
       "date": "2022-01-13",
       "time": "23:33",
       "organizer": "Rickson Simões"
+    },
+    {
+      "id": "ca7a020d-8b96-4b1a-b79f-f9347f4ca0a5",
+      "category": "food",
+      "title": "Artesanal burguers",
+      "description": "we are going to create them",
+      "location": "Tokyo, Japan.",
+      "date": "2021-12-31",
+      "time": "12:57",
+      "organizer": "Rickson Simões"
     }
   ]
 }
