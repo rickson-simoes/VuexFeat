@@ -14,8 +14,8 @@ export default createStore({
     SET_EVENTS(state, events) {
       state.events = events;
     },
-    SET_EVENT(state, id) {
-      state.event = id;
+    SET_EVENT(state, event) {
+      state.event = event;
     }
   },
   actions: {

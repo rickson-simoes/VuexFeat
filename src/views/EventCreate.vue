@@ -45,6 +45,7 @@
 
 <script>
 import { v4 as UUIDv4 } from 'uuid';
+import { mapState } from 'vuex';
 
 export default {
   data() {
@@ -75,7 +76,7 @@ export default {
       const event = {
         ...this.event,
         id: UUIDv4(),
-        organizer: this.$store.state.user
+        organizer: this.user
       };
 
       this.$store
@@ -95,6 +96,9 @@ export default {
           });
         });
     }
+  },
+  computed: {
+    ...mapState(['user'])
   }
 };
 </script>
