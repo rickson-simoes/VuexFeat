@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   props: ['id'],
   created() {
@@ -18,9 +19,7 @@ export default {
     });
   },
   computed: {
-    event() {
-      return this.$store.state.event;
-    }
+    ...mapState(['event'])
   }
 };
 </script>
