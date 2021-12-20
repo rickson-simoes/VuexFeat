@@ -72,12 +72,12 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['createEvent']),
+    ...mapActions('event', ['createEvent']),
     onSubmit() {
       const event = {
         ...this.event,
         id: UUIDv4(),
-        organizer: this.user
+        organizer: this.user.userInfo.name
       };
 
       this.createEvent(event)
